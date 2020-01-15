@@ -72,7 +72,8 @@ class HomeController extends Controller
         $item = Item::find($id);
         $hashed_email = hash('sha1',$item->email);
         $hashed_id = hash('sha1',$item->item_serial);
-        return view('view')->with('item', $item)->with('hashEmail',$hashed_email )->with('hashId', $hashed_id);
+        $json = json_encode(array('email' => $item->email, 'serial' => $item->item_serial));
+        return view('view')->with('item', $item)->with('hashEmail',$hashed_email )->with('hashId', $hashed_id)->with('jsonFormat',$json);
     }
 
     public function store(Request $request)

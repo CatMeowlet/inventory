@@ -70,7 +70,9 @@ class HomeController extends Controller
     public function view($id)
     {
         $item = Item::find($id);
-        return view('view')->with('item', $item);
+        $hashed_email = hash('sha1',$item->email);
+        $hashed_id = hash('sha1',$item->item_serial);
+        return view('view')->with('item', $item)->with('hashEmail',$hashed_email )->with('hashId', $hashed_id);
     }
 
     public function store(Request $request)

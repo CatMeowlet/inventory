@@ -52,10 +52,14 @@
                     <div class="row">
                         <div class="container">
                             <div class="card">
-                                <div class="card-header">QR CODE TO BORROW</div>
+                                <div class="card-header">QR CODE</div>
                                 <div class="card-body">
                                     <div class="row justify-content-center">
-                                        {!! QrCode::size(250)->generate($item->email); !!}
+                                        <div class="text-center">
+                                            <img
+                                                src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(250)->generate($hashEmail.'&&'.$hashId)) !!} ">
+                                            <p>Scan me to borrow.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

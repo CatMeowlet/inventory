@@ -113,6 +113,7 @@
 <script>
     $(document).ready(function(){
         $('#toggle-form').hide();
+        $("#toggle-table").hide();
     });
     $(document).ready(function(){
         $("#view-add").click(function() {

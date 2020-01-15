@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Item;
+use App\Log;
+use Illuminate\Support\Facades\DB;
+use DataTables;
+
 
 class HomeController extends Controller
 {
@@ -26,12 +31,64 @@ class HomeController extends Controller
         return view('home');
     }
 
+
+    public function get_log(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Log::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('list');
+    }
+
+    public function get_inventory(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Item::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="view/' . $row->item_id . '"class="edit btn btn-primary btn-sm">View Detail</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('list');
+    }
+    public function view($id)
+    {
+        $item = Item::find($id);
+        return view('view')->with('item', $item);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
-            'item_id' => 'required',
-            'user_id' => 'required'
+            'ownerName' => 'required',
+            'email' => 'required',
+            'item_type' => 'required',
+            'item_serial' => 'required'
         ]);
-        return redirect('/');
+
+        $item = new Item;
+        $item->owner_name = $request->input('ownerName');
+        $item->email = $request->input('email');
+        $item->item_type = $request->input('item_type');
+        $item->item_serial = $request->input('item_serial');
+        $item->save();
+
+        return redirect('/home')->with('success', 'Successfully added.');
     }
 }

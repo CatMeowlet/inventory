@@ -28,4 +28,3 @@ Route::get('view/{id}', 'HomeController@view')->name('user.view');
 
 
 Route::get('export', 'HomeController@exportData')->name('user.export');
-?>

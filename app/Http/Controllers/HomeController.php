@@ -118,7 +118,6 @@ class DataExport implements FromCollection,WithHeadings
             'owner item S/N',
             'borrower email',
             'timestamp',
-
         ];
     }
 }

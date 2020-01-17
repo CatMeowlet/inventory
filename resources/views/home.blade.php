@@ -132,11 +132,11 @@
              ajax: "{{ route('user.log') }}",
              columns: [
                       { data: 'history_id', name: 'history_id' },
-                      { data: 'owner_name', name: 'Owner Name' },
-                      { data: 'owner_email', name: 'Owner Email' },
-                      { data: 'item_type', name: 'Item Type' },
-                      { data: 'borrower_email', name: 'Borrower Email' },
-                      { data: 'borrowed_date', name: 'Date Borrowed' }
+                      { data: 'owner_name', name: 'owner_name' },
+                      { data: 'owner_email', name: 'owner_email' },
+                      { data: 'item_type', name: 'item_type' },
+                      { data: 'borrower_email', name: 'borrower_email' },
+                      { data: 'borrowed_date', name: 'borrowed_date' }
                    ]
           });
       });
@@ -148,10 +148,10 @@
          ajax: "{{ route('user.inventory') }}",
          columns: [
                   { data: 'item_id', name: 'item_id' },
-                  { data: 'owner_name', name: 'Owner Name' },
-                  { data: 'email', name: 'Owner Email' },
-                  { data: 'item_type', name: 'Item Type' },
-                  { data: 'item_serial', name: 'Item S/N' },
+                  { data: 'owner_name', name: 'owner_name' },
+                  { data: 'email', name: 'email' },
+                  { data: 'item_type', name: 'item_type' },
+                  { data: 'item_serial', name: 'item_serial' },
                   { data: 'action', name: 'action' }
                ]
       });

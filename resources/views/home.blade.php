@@ -24,6 +24,7 @@
                             </thead>
                         </table>
                     </div>
+                    <a href="{{ route('user.export') }}"><button class="btn btn-success">Download Excel xlsx</button></a>
                 </div>
             </div>
             <!-- /.DATA TABLE FOR LOGS -->
@@ -130,12 +131,12 @@
              serverSide: true,
              ajax: "{{ route('user.log') }}",
              columns: [
-                      { data: 'history_id', name: 'History *' },
+                      { data: 'history_id', name: 'history_id' },
                       { data: 'owner_name', name: 'Owner Name' },
                       { data: 'owner_email', name: 'Owner Email' },
                       { data: 'item_type', name: 'Item Type' },
                       { data: 'borrower_email', name: 'Borrower Email' },
-                      { data: 'borrower_date', name: 'Date Borrowed' }
+                      { data: 'borrowed_date', name: 'Date Borrowed' }
                    ]
           });
       });
@@ -146,7 +147,7 @@
          serverSide: true,
          ajax: "{{ route('user.inventory') }}",
          columns: [
-                  { data: 'item_id', name: 'Item *' },
+                  { data: 'item_id', name: 'item_id' },
                   { data: 'owner_name', name: 'Owner Name' },
                   { data: 'email', name: 'Owner Email' },
                   { data: 'item_type', name: 'Item Type' },

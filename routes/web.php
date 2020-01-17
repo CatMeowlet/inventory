@@ -25,4 +25,7 @@ Route::post('/add', 'HomeController@store')->name('user.add');
 Route::get('home/list', 'HomeController@get_log')->name('user.log');
 Route::get('home/list/inventory', 'HomeController@get_inventory')->name('user.inventory');
 Route::get('view/{id}', 'HomeController@view')->name('user.view');
+
+
+Route::get('export', 'HomeController@exportData')->name('user.export');
 ?>

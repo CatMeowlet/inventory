@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\Item;
 use App\Log;
 use Illuminate\Support\Facades\DB;
-use DataTables;
-
-
+use Yajra\DataTables\Facades\DataTables;
+use Excel;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 class HomeController extends Controller
 {
     /**
@@ -70,10 +71,11 @@ class HomeController extends Controller
     public function view($id)
     {
         $item = Item::find($id);
-        $hashed_email = hash('sha1',$item->email);
-        $hashed_id = hash('sha1',$item->item_serial);
+        $hashed_email = hash('sha1', $item->email);
+        $hashed_id = hash('sha1', $item->item_serial);
         $json = json_encode(array('email' => $item->email, 'serial' => $item->item_serial));
-        return view('view')->with('item', $item)->with('hashEmail',$hashed_email )->with('hashId', $hashed_id)->with('jsonFormat',$json);
+        $hashedJson = json_encode(array('email' => $hashed_email, 'serial' => $hashed_id));
+        return view('view')->with('item', $item)->with('hashEmail', $hashed_email)->with('hashId', $hashed_id)->with('jsonFormat', $json)->with('jsonHashed', $hashedJson);
     }
 
     public function store(Request $request)
@@ -93,5 +95,30 @@ class HomeController extends Controller
         $item->save();
 
         return redirect('/home')->with('success', 'Successfully added.');
+    }
+
+    function exportData()
+    {
+        return Excel::download(new DataExport, 'log.xlsx');
+    }
+}
+class DataExport implements FromCollection,WithHeadings
+{
+    function collection()
+    {
+        return Log::all();
+    }
+    public function headings(): array
+    {
+        return [
+            'history id',
+            'owner name',
+            'owner email',
+            'owner item',
+            'owner item S/N',
+            'borrower email',
+            'timestamp',
+
+        ];
     }
 }
